@@ -6,44 +6,91 @@ using System.Threading.Tasks;
 
 namespace SimpleHubs.Hubs
 {
-    public class Simple : Hub //, IConnected
+    #region Step 1
+    public class Simple : Hub
     {
-        private static List<string> Users = new List<string>();
-
         public void Send(string message)
         {
             Clients.NewMessage(message);
-            //Clients.NewMessage(string.Format("[{0}] {1}", GetUserName(), message));
         }
-
-        //private string GetUserName()
-        //{
-        //    if (!Context.User.Identity.IsAuthenticated)
-        //        return "Guest";
-
-        //    return Context.User.Identity.Name;
-        //}
-
-        //private void EnsureUserInList()
-        //{
-        //    if (!Context.User.Identity.IsAuthenticated)
-        //        return;
-
-        //    if (!Users.Contains(Context.User.Identity.Name))
-        //        Users.Add(Context.User.Identity.Name);
-        //}
-
-        //public Task Connect()
-        //{
-        //    EnsureUserInList();
-        //    return null;
-        //}
-
-        //public Task Reconnect(IEnumerable<string> groups)
-        //{
-        //    EnsureUserInList();
-        //    return null;
-        //}
-
     }
+    #endregion
+
+    #region Step 2
+    //public class Simple : Hub
+    //{
+    //    public void Send(string message)
+    //    {
+    //        Clients.NewMessage(string.Format("[{0}] {1}", GetUserName(), message));
+    //    }
+
+    //    private string GetUserName()
+    //    {
+    //        if (!Context.User.Identity.IsAuthenticated)
+    //            return "Guest";
+
+    //        return Context.User.Identity.Name;
+    //    }
+    //}
+    #endregion
+
+    #region Step 3
+    //public class Simple : Hub, IConnected, IDisconnect
+    //{
+    //    private static Dictionary<string, string> Users = new Dictionary<string, string>();
+
+    //    public void Send(string message)
+    //    {
+    //        Send(message, false);
+    //    }
+
+    //    private void Send(string message, bool system)
+    //    {
+    //        Clients.NewMessage(string.Format("[{0}] {1}", system ? "System" : GetUserName(), message));
+    //    }
+
+    //    private string GetUserName()
+    //    {
+    //        if (!Context.User.Identity.IsAuthenticated)
+    //            return "Guest";
+
+    //        return Context.User.Identity.Name;
+    //    }
+
+    //    private void EnsureUserInList()
+    //    {
+    //        if (!Context.User.Identity.IsAuthenticated)
+    //            return;
+
+    //        if (!Users.ContainsKey(Context.ConnectionId))
+    //        {
+    //            Users.Add(Context.ConnectionId, Context.User.Identity.Name);
+    //            Send(string.Format("{0} has entered the room", Users[Context.ConnectionId]), true);
+    //        }
+    //    }
+
+    //    public Task Connect()
+    //    {
+    //        EnsureUserInList();
+    //        return null;
+    //    }
+
+    //    public Task Reconnect(IEnumerable<string> groups)
+    //    {
+    //        EnsureUserInList();
+    //        return null;
+    //    }
+
+
+    //    public Task Disconnect()
+    //    {
+    //        if (Users.ContainsKey(Context.ConnectionId))
+    //        {
+    //            Send(string.Format("{0} has left the room.", Users[Context.ConnectionId]), true);
+    //            Users.Remove(Context.ConnectionId);
+    //        }
+    //        return null;
+    //    }
+    //}
+    #endregion
 }
