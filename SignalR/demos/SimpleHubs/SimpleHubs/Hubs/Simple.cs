@@ -71,25 +71,31 @@ namespace SimpleHubs.Hubs
 
     //    public Task Connect()
     //    {
-    //        EnsureUserInList();
-    //        return null;
+    //        return Task.Factory.StartNew(() =>
+    //        {
+    //            EnsureUserInList();
+    //        });
     //    }
 
     //    public Task Reconnect(IEnumerable<string> groups)
     //    {
-    //        EnsureUserInList();
-    //        return null;
+    //        return Task.Factory.StartNew(() =>
+    //        {
+    //            EnsureUserInList();
+    //        });
     //    }
 
 
     //    public Task Disconnect()
     //    {
-    //        if (Users.ContainsKey(Context.ConnectionId))
+    //        return Task.Factory.StartNew(() =>
     //        {
-    //            Send(string.Format("{0} has left the room.", Users[Context.ConnectionId]), true);
-    //            Users.Remove(Context.ConnectionId);
-    //        }
-    //        return null;
+    //            if (Users.ContainsKey(Context.ConnectionId))
+    //            {
+    //                Send(string.Format("{0} has left the room.", Users[Context.ConnectionId]), true);
+    //                Users.Remove(Context.ConnectionId);
+    //            }
+    //        });
     //    }
     //}
     #endregion
