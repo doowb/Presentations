@@ -12,3 +12,17 @@ C:\Dev\Misc\Presentations\SignalR\demos\SimpleHubs\SimpleHubs\bin\Newtonsoft.Jso
 C:\Dev\Misc\Presentations\SignalR\demos\SimpleHubs\SimpleHubs\bin\SignalR.xml
 C:\Dev\Misc\Presentations\SignalR\demos\SimpleHubs\SimpleHubs\bin\SignalR.Hosting.AspNet.xml
 C:\Dev\Misc\Presentations\SignalR\demos\SimpleHubs\SimpleHubs\bin\SignalR.Hosting.Common.xml
+C:\Work\misc\Presentations\SignalR\demos\SimpleHubs\SimpleHubs\bin\SimpleHubs.dll
+C:\Work\misc\Presentations\SignalR\demos\SimpleHubs\SimpleHubs\bin\SimpleHubs.pdb
+C:\Work\misc\Presentations\SignalR\demos\SimpleHubs\SimpleHubs\bin\Microsoft.Web.Infrastructure.dll
+C:\Work\misc\Presentations\SignalR\demos\SimpleHubs\SimpleHubs\bin\Newtonsoft.Json.dll
+C:\Work\misc\Presentations\SignalR\demos\SimpleHubs\SimpleHubs\bin\SignalR.dll
+C:\Work\misc\Presentations\SignalR\demos\SimpleHubs\SimpleHubs\bin\SignalR.Hosting.AspNet.dll
+C:\Work\misc\Presentations\SignalR\demos\SimpleHubs\SimpleHubs\bin\SignalR.Hosting.Common.dll
+C:\Work\misc\Presentations\SignalR\demos\SimpleHubs\SimpleHubs\bin\Newtonsoft.Json.xml
+C:\Work\misc\Presentations\SignalR\demos\SimpleHubs\SimpleHubs\bin\SignalR.xml
+C:\Work\misc\Presentations\SignalR\demos\SimpleHubs\SimpleHubs\bin\SignalR.Hosting.AspNet.xml
+C:\Work\misc\Presentations\SignalR\demos\SimpleHubs\SimpleHubs\bin\SignalR.Hosting.Common.xml
+C:\Work\misc\Presentations\SignalR\demos\SimpleHubs\SimpleHubs\obj\Debug\SimpleHubs.csprojResolveAssemblyReference.cache
+C:\Work\misc\Presentations\SignalR\demos\SimpleHubs\SimpleHubs\obj\Debug\SimpleHubs.dll
+C:\Work\misc\Presentations\SignalR\demos\SimpleHubs\SimpleHubs\obj\Debug\SimpleHubs.pdb

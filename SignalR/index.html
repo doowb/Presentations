@@ -43,31 +43,232 @@
 					# SignalR
 					### Realtime web for .NET developers
 				</section>
+
+				<section>
+					<h3>Where to get SignalR</h3>
+					<ul>
+						<li class="fragment">Website
+							<ul><li>http://signalr.net/</li></ul>
+						</li>
+						<li class="fragment">github
+							<ul><li>https://github.com/SignalR/SignalR</li></ul>
+						</li>
+						<li class="fragment">Nuget
+							<ul><li>http://nuget.org/packages/signalr</li></ul>
+						</li>
+					</ul>
+				</section>
+
+				<section>
+					<h3>How to use SignalR</h3>
+					<ul class="fragment">
+						<li>Install through nuget</li>
+					</ul>
+					<pre class="fragment"><code contenteditable>
+PM> Install-Package SignalR
+					</code></pre>
+				</section>
 				
 				<section data-markdown>
-					<p>Take a look at some code</p>
+					<h3>Take a look at some code</h3>
+				</section>
+				<section>
+					<section data-markdown>
+						<h3>Simple Hub</h3>
+
+						<p>C# - Simple.cs</p>
+						<pre class="fragment"><code contenteditable>
+						public class Simple : Hub
+						{
+							public void Send(string message)
+							{
+								Clients.NewMessage(message);
+							}
+						}
+						</code></pre>
+
+						<aside class="notes">
+							The above snippet must use the code tag
+							because the markdown isn't working properly with the
+							fragment class
+						</aside>
+					</section>
+
+					<section data-markdown>
+						<p>html - Index.cshtml</p>
+
+						<pre><code contenteditable>
+```html
+<div>
+	<input id="textbox1" type="text" style="width:200px" />
+	<button id="send">Send</button>
+</div>
+<ul id="messages"></ul>
+```
+						</code></pre>
+					</section>
+
+					<section data-markdown>
+						<p>javascript - Index.cshtml</p>
+
+						<pre><code contenteditable>
+$(function () {
+    var simpleHub = $.connection.simple;
+
+    simpleHub.newMessage = function (message) {
+        addMessage(message);
+    };
+
+    function addMessage(value) {
+        $('#messages').append('&lt;li&gt;' + value + '&lt;/li&gt;');
+    };
+
+    $('#send').on('click', function (e) {
+        e.preventDefault();
+
+        var tb = $('#textbox1');
+        if (tb.val() !== '') {
+            simpleHub.send(tb.val());
+            tb.val('');
+            tb.focus();
+        }
+    });
+
+    $.connection.hub.start();
+});
+						</code></pre>
+					</section>
+				</section>
+
+				<section data-markdown>
+					<h3>Adding to it</h3>
 
 					<pre class="fragment"><code contenteditable>
-					public class MyHub : Hub
-					{
-						public void Send(string message)
-						{
-							Clients.NewMessage(message);
-						}
-					}
+public class Simple : Hub
+{
+    public void Send(string message)
+    {
+        Clients.NewMessage(string.Format("[{0}] {1}"
+        		, GetUserName()
+        		, message));
+    }
+
+    private string GetUserName()
+    {
+        if (!Context.User.Identity.IsAuthenticated)
+            return "Guest";
+
+        return Context.User.Identity.Name;
+    }
+}
 					</code></pre>
+				</section>
 
+				<section>
+					<section data-markdown>
+					<h3>Knowing when someone connects and disconnects</h3>
 
-					<aside class="notes">
-						The above snippet must use the code tag
-						because the markdown isn't working properly with the
-						fragment class
-					</aside>
+					<pre class="fragment"><code contenteditable>
+public class Simple : Hub, IConnected, IDisconnect
+{
+    private static Dictionary&lt;string, string&gt; Users
+    	= new Dictionary&lt;string, string&gt;();
+
+    public void Send(string message)
+    {
+        Send(message, false);
+    }
+
+    private void Send(string message, bool system)
+    {
+        Clients.NewMessage(string.Format("[{0}] {1}"
+        	, system ? "System" : GetUserName()
+        	, message));
+    }
+
+    private string GetUserName()
+    {
+        if (!Context.User.Identity.IsAuthenticated)
+            return "Guest";
+
+        return Context.User.Identity.Name;
+    }
+					</code></pre>
+					</section>
+
+					<section data-markdown>
+						<pre><code contenteditable>
+    public Task Connect()
+    {
+        return Task.Factory.StartNew(() =>
+        {
+            EnsureUserInList();
+        });
+    }
+
+    public Task Reconnect(IEnumerable&lt;string&gt; groups)
+    {
+        return Task.Factory.StartNew(() =>
+        {
+            EnsureUserInList();
+        });
+    }
+					</code></pre>
+					</section>
+
+					<section data-markdown>
+						<pre><code contenteditable>
+    public Task Disconnect()
+    {
+        return Task.Factory.StartNew(() =>
+        {
+            if (Users.ContainsKey(Context.ConnectionId))
+            {
+                Send(string.Format("{0} has left the room."
+                	, Users[Context.ConnectionId])
+                	, true);
+                Users.Remove(Context.ConnectionId);
+            }
+        });
+    }
+
+	private void EnsureUserInList()
+    {
+        if (!Context.User.Identity.IsAuthenticated)
+            return;
+
+        if (!Users.ContainsKey(Context.ConnectionId))
+        {
+            Users.Add(Context.ConnectionId
+            	, Context.User.Identity.Name);
+            Send(string.Format("{0} has entered the room"
+            , Users[Context.ConnectionId])
+            , true);
+        }
+    }
+}
+						</code></pre>
+					</section>
 				</section>
 				
 				<section>
+					<h3>Finding More Information</h3>
+					<ul>
+						<li>SignalR Docs
+							<ul><li>https://github.com/SignalR/SignalR/wiki</li></ul>
+						</li>
+						<li>This presentation on github
+							<ul><li>https://github.com/doowb/Presentations/tree/master/SignalR</li></ul>
+						</li>
+					</ul>
+				</section>
+				<section>
 					<h1>THE END</h1>
-					<h3>BY Brian Woodward</h3>
+					<p>By Brian Woodward</p>
+					<ui>
+						<li>Twitter: @doowb</li>
+						<li>github: https://github.com/doowb</li>
+					</ul>
 				</section>
 			</div>
 
