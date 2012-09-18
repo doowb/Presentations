@@ -1,7 +1,7 @@
 ﻿@{
     ViewBag.Title = "Home Page";
 }
-
+<div id="alert"></div>
 <div><input id="textbox1" type="text" style="width:200px" /> <button id="send">Send</button></div>
 <ul id="messages"></ul>
 
@@ -25,7 +25,9 @@
 
             var tb = $('#textbox1');
             if (tb.val() !== '') {
-                simpleHub.send(tb.val());
+                simpleHub.send(tb.val(), function () {
+                    $('#alert').html(simpleHub.MessageSent ? "Success" : "Failed!!!");
+                });
                 tb.val('');
                 tb.focus();
             }

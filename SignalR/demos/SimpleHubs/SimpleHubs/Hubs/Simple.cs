@@ -12,6 +12,7 @@ namespace SimpleHubs.Hubs
         public void Send(string message)
         {
             Clients.NewMessage(message);
+            Caller.MessageSent = true;
         }
     }
     #endregion
