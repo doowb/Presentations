@@ -1,0 +1,17 @@
+{
+  "author": "Brian Woodward",
+  "name": "presentations",
+  "description": "Presentation Folder",
+  "version": "0.2.0",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/doowb/Presentations.git"
+  },
+  "engines": {
+    "node": "~0.6.8"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "lodash": "~1.2.0"
+  }
+}
