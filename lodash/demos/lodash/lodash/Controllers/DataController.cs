@@ -9,10 +9,15 @@ namespace lodash.Controllers
 {
     public class DataController : ApiController
     {
-        public List<object> Get(string id)
+        public object Get(string id)
         {
             var results = new List<object>();
-            results.Add(id);
+            var i = 1;
+            results.Add(id + "_" + i++);
+            results.Add(id + "_" + i++);
+            results.Add(id + "_" + i++);
+            results.Add(id + "_" + i++);
+            results.Add(id + "_" + i++);
             return results;
         }
     }
