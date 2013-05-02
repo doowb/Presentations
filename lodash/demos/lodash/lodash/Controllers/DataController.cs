@@ -1,4 +1,5 @@
-﻿using System;
+﻿using lodash.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -9,15 +10,19 @@ namespace lodash.Controllers
 {
     public class DataController : ApiController
     {
-        public object Get(string id)
+        public IList<IModel> Get(string id)
         {
-            var results = new List<object>();
-            var i = 1;
-            results.Add(id + "_" + i++);
-            results.Add(id + "_" + i++);
-            results.Add(id + "_" + i++);
-            results.Add(id + "_" + i++);
-            results.Add(id + "_" + i++);
+            var results = new List<IModel>();
+
+            switch (id.ToLower())
+            {
+                case "food":
+                    results = Food.GetAll();
+                    break;
+                default:
+                    break;
+            };
+
             return results;
         }
     }
