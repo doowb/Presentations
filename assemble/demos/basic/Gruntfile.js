@@ -53,7 +53,6 @@ module.exports = function(grunt) {
       },
       'prod-assets': {
         files: [
-          // pages
           { expand: true, cwd: 'staging/assets', dest: 'app/public/assets/', src: ['./**/*.*'] }
         ]
       }
@@ -98,7 +97,7 @@ module.exports = function(grunt) {
 
   // Upstage application.
   grunt.registerTask('app', [
-    'clean:prod'
+    'clean:prod',
     'default',
     'copy'
   ]);
