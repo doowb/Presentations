@@ -41,6 +41,11 @@ module.exports = function(grunt) {
     },
 
     copy: {
+      staging: {
+        files: [
+          { expand: true, cwd: 'src/assets', dest: 'staging/assets/', src: './**/*.*' }
+        ]
+      },
       'prod-pages': {
         options: {
           processContent: function(content) {
@@ -51,9 +56,11 @@ module.exports = function(grunt) {
           { expand: true, cwd: 'staging', dest: 'app/public/', src: ['./**/*.html'] }
         ]
       },
-      'prod-assets': {
+      prod: {
         files: [
-          { expand: true, cwd: 'staging/assets', dest: 'app/public/assets/', src: ['./**/*.*'] }
+          { expand: true, cwd: 'staging/assets', dest: 'app/public/assets/', src: ['./**/*.*'] },
+          { expand: true, cwd: 'src/app/server', dest: 'app/', src: ['./**/*.*'] },
+          { expand: true, cwd: 'src/app/client', dest: 'app/public/assets/js/app', src: ['./**/*.*'] }
         ]
       }
     },
@@ -90,16 +97,12 @@ module.exports = function(grunt) {
   grunt.loadTasks('tasks');
 
   // Default task.
-  grunt.registerTask('default', ['clean:staging', 'assemble']);
+  grunt.registerTask('default', ['clean:staging', 'copy:staging', 'assemble']);
 
   // Tests to be run.
   //grunt.registerTask('test', ['assemble:less']);
 
   // Upstage application.
-  grunt.registerTask('app', [
-    'clean:prod',
-    'default',
-    'copy'
-  ]);
+  grunt.registerTask('app', ['clean:prod', 'default', 'copy:prod-pages', 'copy:prod']);
 
 };
