@@ -20,89 +20,30 @@ module.exports = function(grunt) {
       }
     },
 
-    assemble: {
+    github: {
       options: {
-        assets: 'staging/assets',
-        flatten: true,
-        ext: '.html',
-        data:  [
-          'src/data/**/*.{json,yml}'
-        ]
-      },
-      demo: {
-        options: {
-          layout: 'src/templates/layouts/layout.hbs',
-          partials: 'src/templates/partials/**/*.hbs'
-        },
-        files: [
-          { expand: true, cwd: 'src/templates/pages', src: ['**/*.hbs'], dest: 'staging/' }
-        ]
-      }
-    },
 
-    copy: {
-      staging: {
-        files: [
-          { expand: true, cwd: 'src/assets', dest: 'staging/assets/', src: './**/*.*' }
-        ]
       },
-      'prod-pages': {
+
+      repos: {
         options: {
-          processContent: function(content) {
-            return content.replace('{%', '{{').replace('%}', '}}');
+          filters: {
+            'type': 'public'
           }
         },
-        files: [
-          { expand: true, cwd: 'staging', dest: 'app/public/', src: ['./**/*.html'] }
-        ]
-      },
-      prod: {
-        files: [
-          { expand: true, cwd: 'staging/assets', dest: 'app/public/assets/', src: ['./**/*.*'] },
-          { expand: true, cwd: 'src/app/server', dest: 'app/', src: ['./**/*.*'] },
-          { expand: true, cwd: 'src/app/client', dest: 'app/public/assets/js/app', src: ['./**/*.*'] }
-        ]
-      }
-    },
-
-    // Before generating new files, clean out files from previous build.
-    clean: {
-      staging: {
-        src: ['staging/**/*.*']
-      },
-      prod: {
-        src: ['app/**/*.*']
-      }
-    },
-
-    watch: {
-      project: {
-        files: [
-          'src/**/*.*'
-        ],
-        tasks: ['clean:staging', 'assemble']
+        src: '/orgs/assemble/repos',
+        dest: 'assemble-public-repos.json'
       }
     }
 
   });
 
   // Load npm plugins to provide necessary tasks.
-  grunt.loadNpmTasks('grunt-contrib-clean');
-  grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-contrib-jshint');
-  grunt.loadNpmTasks('grunt-contrib-watch');
-  grunt.loadNpmTasks('assemble');
-
-  // Load local tasks.
-  grunt.loadTasks('tasks');
+  grunt.loadNpmTasks('grunt-github-api');
 
   // Default task.
-  grunt.registerTask('default', ['clean:staging', 'copy:staging', 'assemble']);
+  grunt.registerTask('default', ['github']);
 
-  // Tests to be run.
-  //grunt.registerTask('test', ['assemble:less']);
-
-  // Upstage application.
-  grunt.registerTask('app', ['clean:prod', 'default', 'copy:prod-pages', 'copy:prod']);
 
 };
