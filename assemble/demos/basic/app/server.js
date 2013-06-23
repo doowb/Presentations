@@ -20,6 +20,9 @@ module.exports = (function() {
 
 	var port = 12345;
 
+	var routes = require('./routes.js');
+	app.get('/api/stuff', routes.index);
+
 	app.listen(port);
 
 	console.log('Application Server running on port ' + port + '...');
