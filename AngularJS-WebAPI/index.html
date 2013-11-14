@@ -45,11 +45,11 @@
 				
 
 				<section>
-					<ol>
-						<li class="fragment"><h2>AngularJS</h2></li>
-						<li class="fragment"><h2>ASP.NET MVC 4 Web API</h2></li>
-						<li class="fragment"><h2>Pitfalls</h2></li>
-					</ol>
+					<ul>
+						<li class="fragment"><p>AngularJS</p></li>
+						<li class="fragment"><p>ASP.NET MVC 4 Web API</p></li>
+						<li class="fragment"><p>Pitfalls</p></li>
+					</ul>
 				</section>
 
 				<section>
@@ -57,23 +57,127 @@
 					<aside class="notes">
 					</aside>
 					<section>
-						<h2>Caching</h2>
+						<p>Namespacing / Modules</p>
+						<pre><code contenteditable style="font-size: 18px; margin-top: 20px;">
+  var rcs = rcs || {};
+  rcs.app = rcs.app || {};
+  rcs.app.core = angular.module('rcsApp');
+						</code></pre>
 						<aside class="notes">
+							Create a base namespace for your app.
+							Use the angularjs modules.
+							Organize your script files.
 						</aside>
 					</section>
 					<section>
-						<h2>Namespacing / Modules</h2>
+						<p>AngularJS Services</p>
+          </section>
+          <section>
+            <p>Generic API Service</p>
+            <pre><code contenteditable style="font-size: 18px; margin-top: 20px;">
+rcs.app.core.factory('services', ['$http',
+  function ($http) {
+      var callApi = function (url, data, success, error, requestType) {
+          if (requestType) {
+              $http({ url: url, data: data, method: requestType })
+              .success(success)
+              .error(error);
+
+              return;
+          }
+
+          $http.post(url, data)
+              .success(success)
+              .error(error);
+      };
+
+      return {
+          callApi: callApi
+      };
+  }
+]);
+            </code></pre>
+          </section>
+          <section>
+            <p>Domain Specific API Service</p>
+            <pre><code contenteditable style="font-size: 18px; margin-top: 20px;">
+rcs.app.core.factory('userData', ['services',
+  function (services) {
+      return {
+          create: function (user, success, error) {
+              services.callApi('/api/users/newUser', user, success, error);
+          },
+          getByUsername: function (username, success, error) {
+              services.callApi('/api/users/byUsername', { Username: username }, success, error);
+          },
+          resetPassword: function (user, success, error) {
+              user.EditMode = 'resetpassword';
+              services.callApi('/api/users/editUser', user, success, error);
+          },
+          save: function (user, success, error) {
+              user.EditMode = 'save';
+              services.callApi('/api/users/editUser', user, success, error);
+          },
+          search: function (params, success, error) {
+              services.callApi('/api/users/search', params, success, error);
+          }
+      };
+  }
+]);
+            </code></pre>
+          </section>
+          <section>
+            <p>Using The Services</p>
+            <pre class="fragment"><code contenteditable style="font-size: 18px; margin-top: 20px;">
+rcs.app.core.controller('usersSearch',
+    function usersSearch($scope, $filter, userData) {
+        $scope.showDisabled = false;
+        $scope.users = [];
+
+        function onError(error) {
+            alert(error.ExceptionMessage);
+        };
+
+        function onUsersLoaded(users) {
+            $scope.users = users;
+        };
+
+        $scope.search = function () {
+            var params = {
+                SearchText: $scope.searchText,
+                ShowDisabled: $scope.showDisabled
+            };
+            userData.search(params, onUsersLoaded, onError);
+        };
+    }
+);
+            </code></pre>
+          </section>
+					<aside class="notes">
+						Use services for data access.
+					</aside>
+					<section>
+						<p>Caching Templates</p>
+            <pre class="fragment"><code contenteditable style="font-size: 18px; margin-top: 20px;">
+rcs.app.core.run(function ($rootScope, $templateCache) {
+    $rootScope.$on('$viewContentLoaded', function () {
+        $templateCache.removeAll();
+    });
+});
+            </code></pre>
 						<aside class="notes">
+							Removing template caching from angular to reload razor templates on
+							each load.
 						</aside>
 					</section>
 					<section>
-						<h2>AngularJS Services</h2>
+						<p>Angular UI Modules</p>
+            <ul>
+              <li><a href="http://angular-ui.github.io/#ui-modules">UI-Modules</li>
+              <li><a href="http://angular-ui.github.io/ui-calendar/">UI-Calendar</a></li>
+            </ul>
 						<aside class="notes">
-						</aside>
-					</section>
-					<section>
-						<h2>Bootstrap</h2>
-						<aside class="notes">
+							Use the angular-ui project for working with common bootstrap components.
 						</aside>
 					</section>
 				</section>
@@ -83,25 +187,127 @@
 					<aside class="notes">
 					</aside>
 					<section>
-						<h2>Razor Templates</h2>
+						<p>Razor Templates</p>
 						<aside class="notes">
+							Setup a single TemplateController to handle all template rendering.
+						</aside>
+					</section>
+          <section>
+            <p>Template Route</p>
+            <pre class="fragment"><code contenteditable style="font-size: 18px; margin-top: 20px;">
+routes.MapRoute(
+    name: "Templates",
+    url: "Templates/{*template}",
+    defaults: new { controller = "Templates", action = "Index" }
+);
+            </code></pre>
+          </section>
+          <section>
+            <p>Template Controller</p>
+            <pre class="fragment"><code contenteditable style="font-size: 18px; margin-top: 20px;">
+public class TemplatesController : BaseController
+{
+    public ActionResult Index(string template)
+    {
+        return View(template);
+    }
+}
+            </code></pre>
+          </section>
+          <section>
+            <p>Calling Templates from Angular</p>
+            <pre class="fragment"><code contenteditable style="font-size: 18px; margin-top: 20px;">
+ $routeProvider.when('/users/search',
+    {
+        templateUrl: '/templates/users/search',
+        controller: 'usersSearch'
+    })
+            </code></pre>
+          </section>
+					<section>
+						<p>Caching Templates</p>
+            <pre class="fragment"><code contenteditable style="font-size: 18px; margin-top: 20px;">
+protected override System.IAsyncResult BeginExecute(
+  System.Web.Routing.RequestContext requestContext, 
+  System.AsyncCallback callback, object state)
+{
+    requestContext.HttpContext.Response.Cache.SetMaxAge(new TimeSpan(0));
+    return base.BeginExecute(requestContext, callback, state);
+}
+            </code></pre>
+						<aside class="notes">
+							Disable caching on the server side too.
 						</aside>
 					</section>
 					<section>
-						<h2>Caching</h2>
+						<p>Bundling / Minification</p>
+            <pre class="fragment"><code contenteditable style="font-size: 18px; margin-top: 20px;">
+bundles.Add(new ScriptBundle("~/bundles/rcs").Include(
+            "~/Scripts/App/rcs.js",
+            "~/Scripts/App/rcs.app.js",
+            "~/Scripts/App/rcs.app.core.js",
+            "~/Scripts/App/Models/*.js",
+            "~/Scripts/App/Directives/*.js",
+            "~/Scripts/App/Controllers/*.js",
+            "~/Scripts/App/Services/*.js",
+            "~/Scripts/App/Filters/*.js"));
+            </code></pre>
 						<aside class="notes">
+							Use wildcards for your scripts and style sheets.
+							Show how to put your app in production mode and show the difference
+							in the file.
 						</aside>
 					</section>
 					<section>
-						<h2>Bundling / Minification</h2>
+						<p>HttpClient</p>
 						<aside class="notes">
+							Access your WebAPI from server side code.
 						</aside>
 					</section>
-					<section>
-						<h2>HttpClient</h2>
-						<aside class="notes">
-						</aside>
-					</section>
+          <section>
+            <p>Setting up custom credentials</p>
+            <pre class="fragment"><code contenteditable style="font-size: 18px; margin-top: 20px;">
+public HttpClient GetHttpClient()
+{
+    NetworkCredential credentials = new NetworkCredential();
+    credentials.Domain = _credentials.Domain;
+    credentials.UserName = _credentials.UserName;
+    credentials.Password = _credentials.Password;
+
+    WebRequestHandler handler = new WebRequestHandler();
+    handler.UseDefaultCredentials = false;
+    handler.Credentials = credentials;
+    handler.PreAuthenticate = true;
+
+    return new HttpClient(handler);
+}
+            </code></pre>
+          </section>
+          <section>
+            <p>Using the HttpClient</p>
+            <pre class="fragment"><code contenteditable style="font-size: 18px; margin-top: 20px;">
+public class NotificationRepository : INotificationRepository
+{
+    private readonly string apiUrl;
+    private HttpClient client;
+    public NotificationRepository(IClientService clientService)
+    {
+        client = clientService.GetHttpClient();
+        apiUrl = ConfigurationManager.AppSettings["ApiUrl"].ToString();
+    }
+
+    public IEnumerable<Notification> DashboardNotifications(string username)
+    {
+        string url = apiUrl + "/api/notifications/dashboard";
+        var data = new Credentials() { Username = username };
+        HttpResponseMessage response = client.PostAsJsonAsync(url, data).Result;
+        response.EnsureSuccessStatusCode();
+        IEnumerable<Notification> result = response.Content.ReadAsAsync<IEnumerable<Notification>>().Result;
+        return result;
+    }
+}
+            </code></pre>
+          </section>
 				</section>
 
 
@@ -110,18 +316,34 @@
 					<aside class="notes">
 					</aside>
 					<section>
-						<h2>Caching</h2>
+						<p>Caching Issues In Older Browers</p>
+            <pre class="fragment"><code contenteditable style="font-size: 18px; margin-top: 20px;">
+protected override System.IAsyncResult BeginExecute(
+  System.Web.Routing.RequestContext requestContext, 
+  System.AsyncCallback callback, object state)
+{
+    requestContext.HttpContext.Response.Cache.SetMaxAge(new TimeSpan(0));
+    return base.BeginExecute(requestContext, callback, state);
+}
+            </code></pre>
 						<aside class="notes">
+							IE 8 ignores some of the caching rules.
+							Show how to set that up.
 						</aside>
 					</section>
 					<section>
-						<h2>Web API Identity</h2>
+						<p>Web API Identity Issues</p>
 						<aside class="notes">
+							Web API doesn't have a session and when using Async Tasks
+							it could run under a different identity.
 						</aside>
 					</section>
 					<section>
-						<h2>Angular / Bootstrap Routing Conflicts</h2>
+						<p>Angular / Bootstrap Routing Conflicts</p>
 						<aside class="notes">
+							Bootstrap modules are built to use jQuery plugins.
+							Angular-ui bootstrap project aims to solve those issues.
+							Angular-ui bootstrap project hasn't completely caught up to Bootstrap 3 yet.
 						</aside>
 					</section>
 				</section>
