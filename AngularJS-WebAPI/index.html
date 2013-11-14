@@ -186,6 +186,30 @@ rcs.app.core.run(function ($rootScope, $templateCache) {
 					<h2>ASP.NET MVC 4 Web API</h2>
 					<aside class="notes">
 					</aside>
+          <section>
+            <p>Main Route</p>
+            <pre class="fragment"><code contenteditable style="font-size: 18px; margin-top: 20px;">
+routes.MapRoute(
+    name: "Default",
+    url: "{*path}",
+    defaults: new { controller = "Main", action = "Index", id = UrlParameter.Optional }
+);
+            </code></pre>
+            <aside class="notes">
+              How to make our ASP.NET MVC server side application handle a single page
+              application.
+            </aside>
+          </section>
+          <section>
+            <p>Template Route</p>
+            <pre class="fragment"><code contenteditable style="font-size: 18px; margin-top: 20px;">
+routes.MapRoute(
+    name: "Templates",
+    url: "Templates/{*template}",
+    defaults: new { controller = "Templates", action = "Index" }
+);
+            </code></pre>
+          </section>
 					<section>
 						<p>Razor Templates</p>
 						<aside class="notes">
