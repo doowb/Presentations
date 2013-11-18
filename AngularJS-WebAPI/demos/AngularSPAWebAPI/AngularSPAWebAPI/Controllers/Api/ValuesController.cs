@@ -5,9 +5,9 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 
-namespace AngularSPAWebAPI.Controllers
+namespace AngularSPAWebAPI.Controllers.Api
 {
-    public class ValuesController : ApiController
+    public class ValuesController : BaseApiController
     {
         // GET api/values
         public IEnumerable<string> Get()

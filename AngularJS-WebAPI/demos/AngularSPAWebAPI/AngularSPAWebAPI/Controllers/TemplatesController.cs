@@ -6,7 +6,7 @@ using System.Web.Mvc;
 
 namespace AngularSPAWebAPI.Controllers
 {
-    public class TemplatesController : Controller
+    public class TemplatesController : BaseController
     {
         public ActionResult Index(string template)
         {
