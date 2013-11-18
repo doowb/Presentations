@@ -62,3 +62,12 @@ C:\Dev\misc\Presentations\AngularJS-WebAPI\demos\AngularSPAWebAPI\AngularSPAWebA
 C:\Dev\misc\Presentations\AngularJS-WebAPI\demos\AngularSPAWebAPI\AngularSPAWebAPI\obj\Debug\AngularSPAWebAPI.csprojResolveAssemblyReference.cache
 C:\Dev\misc\Presentations\AngularJS-WebAPI\demos\AngularSPAWebAPI\AngularSPAWebAPI\obj\Debug\AngularSPAWebAPI.dll
 C:\Dev\misc\Presentations\AngularJS-WebAPI\demos\AngularSPAWebAPI\AngularSPAWebAPI\obj\Debug\AngularSPAWebAPI.pdb
+C:\Dev\misc\Presentations\AngularJS-WebAPI\demos\AngularSPAWebAPI\AngularSPAWebAPI\bin\Microsoft.Practices.ServiceLocation.dll
+C:\Dev\misc\Presentations\AngularJS-WebAPI\demos\AngularSPAWebAPI\AngularSPAWebAPI\bin\Microsoft.Practices.Unity.Configuration.dll
+C:\Dev\misc\Presentations\AngularJS-WebAPI\demos\AngularSPAWebAPI\AngularSPAWebAPI\bin\Microsoft.Practices.Unity.dll
+C:\Dev\misc\Presentations\AngularJS-WebAPI\demos\AngularSPAWebAPI\AngularSPAWebAPI\bin\Microsoft.Practices.ServiceLocation.pdb
+C:\Dev\misc\Presentations\AngularJS-WebAPI\demos\AngularSPAWebAPI\AngularSPAWebAPI\bin\Microsoft.Practices.ServiceLocation.xml
+C:\Dev\misc\Presentations\AngularJS-WebAPI\demos\AngularSPAWebAPI\AngularSPAWebAPI\bin\Microsoft.Practices.Unity.xml
+C:\Dev\misc\Presentations\AngularJS-WebAPI\demos\AngularSPAWebAPI\AngularSPAWebAPI\bin\Microsoft.Practices.Unity.Configuration.xml
+C:\Dev\misc\Presentations\AngularJS-WebAPI\demos\AngularSPAWebAPI\AngularSPAWebAPI\bin\Unity.Mvc3.dll
+C:\Dev\misc\Presentations\AngularJS-WebAPI\demos\AngularSPAWebAPI\AngularSPAWebAPI\bin\Unity.WebApi.dll
