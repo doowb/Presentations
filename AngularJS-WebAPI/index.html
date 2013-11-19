@@ -186,6 +186,7 @@ rcs.app.core.run(function ($rootScope, $templateCache) {
 					<h2>ASP.NET MVC 4 Web API</h2>
 					<aside class="notes">
 					</aside>
+
           <section>
             <p>Main Route</p>
             <pre class="fragment"><code contenteditable style="font-size: 18px; margin-top: 20px;">
@@ -200,6 +201,7 @@ routes.MapRoute(
               application.
             </aside>
           </section>
+
           <section>
             <p>Template Route</p>
             <pre class="fragment"><code contenteditable style="font-size: 18px; margin-top: 20px;">
@@ -210,22 +212,14 @@ routes.MapRoute(
 );
             </code></pre>
           </section>
+
 					<section>
 						<p>Razor Templates</p>
 						<aside class="notes">
 							Setup a single TemplateController to handle all template rendering.
 						</aside>
 					</section>
-          <section>
-            <p>Template Route</p>
-            <pre class="fragment"><code contenteditable style="font-size: 18px; margin-top: 20px;">
-routes.MapRoute(
-    name: "Templates",
-    url: "Templates/{*template}",
-    defaults: new { controller = "Templates", action = "Index" }
-);
-            </code></pre>
-          </section>
+
           <section>
             <p>Template Controller</p>
             <pre class="fragment"><code contenteditable style="font-size: 18px; margin-top: 20px;">
@@ -238,6 +232,7 @@ public class TemplatesController : BaseController
 }
             </code></pre>
           </section>
+
           <section>
             <p>Calling Templates from Angular</p>
             <pre class="fragment"><code contenteditable style="font-size: 18px; margin-top: 20px;">
@@ -248,6 +243,7 @@ public class TemplatesController : BaseController
     })
             </code></pre>
           </section>
+
 					<section>
 						<p>Caching Templates</p>
             <pre class="fragment"><code contenteditable style="font-size: 18px; margin-top: 20px;">
@@ -263,6 +259,7 @@ protected override System.IAsyncResult BeginExecute(
 							Disable caching on the server side too.
 						</aside>
 					</section>
+
 					<section>
 						<p>Bundling / Minification</p>
             <pre class="fragment"><code contenteditable style="font-size: 18px; margin-top: 20px;">
@@ -282,12 +279,14 @@ bundles.Add(new ScriptBundle("~/bundles/rcs").Include(
 							in the file.
 						</aside>
 					</section>
+
 					<section>
 						<p>HttpClient</p>
 						<aside class="notes">
 							Access your WebAPI from server side code.
 						</aside>
 					</section>
+
           <section>
             <p>Setting up custom credentials</p>
             <pre class="fragment"><code contenteditable style="font-size: 18px; margin-top: 20px;">
@@ -307,6 +306,7 @@ public HttpClient GetHttpClient()
 }
             </code></pre>
           </section>
+
           <section>
             <p>Using the HttpClient</p>
             <pre class="fragment"><code contenteditable style="font-size: 18px; margin-top: 20px;">
@@ -332,6 +332,7 @@ public class NotificationRepository : INotificationRepository
 }
             </code></pre>
           </section>
+
 				</section>
 
 
@@ -339,6 +340,7 @@ public class NotificationRepository : INotificationRepository
 					<h2>Pitfalls</h2>
 					<aside class="notes">
 					</aside>
+
 					<section>
 						<p>Caching Issues In Older Browers</p>
             <pre class="fragment"><code contenteditable style="font-size: 18px; margin-top: 20px;">
@@ -355,6 +357,7 @@ protected override System.IAsyncResult BeginExecute(
 							Show how to set that up.
 						</aside>
 					</section>
+
 					<section>
 						<p>Web API Identity Issues</p>
 						<aside class="notes">
@@ -362,6 +365,7 @@ protected override System.IAsyncResult BeginExecute(
 							it could run under a different identity.
 						</aside>
 					</section>
+
 					<section>
 						<p>Angular / Bootstrap Routing Conflicts</p>
 						<aside class="notes">
@@ -370,6 +374,7 @@ protected override System.IAsyncResult BeginExecute(
 							Angular-ui bootstrap project hasn't completely caught up to Bootstrap 3 yet.
 						</aside>
 					</section>
+          
 				</section>
 				
 
