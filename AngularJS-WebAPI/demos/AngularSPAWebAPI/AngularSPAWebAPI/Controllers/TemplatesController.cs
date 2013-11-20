@@ -10,6 +10,7 @@ namespace AngularSPAWebAPI.Controllers
     {
         public ActionResult Index(string template)
         {
+            ViewBag.Now = DateTime.Now;
             return View(template);
         }
 

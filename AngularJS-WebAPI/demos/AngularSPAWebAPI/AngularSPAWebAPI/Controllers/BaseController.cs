@@ -10,7 +10,13 @@ namespace AngularSPAWebAPI.Controllers
 {
     public class BaseController : Controller
     {
-        public BaseController() { }
+        public BaseController()
+        {
+            ViewBag.ApplicationPath = String.Format("{0}://{1}{2}",
+                System.Web.HttpContext.Current.Request.Url.Scheme,
+                System.Web.HttpContext.Current.Request.Url.Authority,
+                HttpRuntime.AppDomainAppVirtualPath);
+        }
 
         protected override void OnException(ExceptionContext filterContext)
         {
