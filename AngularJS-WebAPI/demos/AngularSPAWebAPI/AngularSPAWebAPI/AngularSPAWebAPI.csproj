@@ -142,7 +142,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Bootstrapper.cs" />
     <Compile Include="Controllers\Api\BaseApiController.cs" />
-    <Compile Include="Controllers\Api\ValuesController.cs" />
+    <Compile Include="Controllers\Api\ProductController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\TemplatesController.cs" />
@@ -150,6 +150,12 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\EditCatalogViewModel.cs" />
+    <Compile Include="Models\EditInvoiceViewModel.cs" />
+    <Compile Include="Models\EditProductViewModel.cs" />
+    <Compile Include="Models\NewCatalogViewModel.cs" />
+    <Compile Include="Models\NewInvoiceViewModel.cs" />
+    <Compile Include="Models\NewProductViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -234,6 +240,9 @@
     <Content Include="Scripts\angular.min.js" />
     <Content Include="Scripts\App\app.js" />
     <Content Include="Scripts\App\Controllers\home.js" />
+    <Content Include="Scripts\App\Controllers\productList.js" />
+    <Content Include="Scripts\App\Services\common.js" />
+    <Content Include="Scripts\App\Services\productData.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\html5shiv.js" />
@@ -578,17 +587,26 @@
     <Content Include="Views\Shared\_Copyright.cshtml" />
     <Content Include="Views\Shared\_Navigation.cshtml" />
     <Content Include="Views\Templates\Home\Index.cshtml" />
+    <Content Include="Views\Templates\Products\list.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
     <Folder Include="Scripts\App\Directives\" />
     <Folder Include="Scripts\App\Filters\" />
     <Folder Include="Scripts\App\Models\" />
-    <Folder Include="Scripts\App\Services\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Data\Data.csproj">
+      <Project>{6962633a-8868-4e56-bde0-ab618e947380}</Project>
+      <Name>Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Models\Models.csproj">
+      <Project>{3d5df723-6662-4374-9743-baf8fa63894a}</Project>
+      <Name>Models</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

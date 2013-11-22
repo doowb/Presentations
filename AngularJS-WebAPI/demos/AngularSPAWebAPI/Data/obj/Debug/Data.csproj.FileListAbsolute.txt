@@ -1,0 +1,7 @@
+C:\work\Presentations\AngularJS-WebAPI\demos\AngularSPAWebAPI\Data\bin\Debug\Data.dll
+C:\work\Presentations\AngularJS-WebAPI\demos\AngularSPAWebAPI\Data\bin\Debug\Data.pdb
+C:\work\Presentations\AngularJS-WebAPI\demos\AngularSPAWebAPI\Data\bin\Debug\Models.dll
+C:\work\Presentations\AngularJS-WebAPI\demos\AngularSPAWebAPI\Data\bin\Debug\Models.pdb
+C:\work\Presentations\AngularJS-WebAPI\demos\AngularSPAWebAPI\Data\obj\Debug\Data.csprojResolveAssemblyReference.cache
+C:\work\Presentations\AngularJS-WebAPI\demos\AngularSPAWebAPI\Data\obj\Debug\Data.dll
+C:\work\Presentations\AngularJS-WebAPI\demos\AngularSPAWebAPI\Data\obj\Debug\Data.pdb

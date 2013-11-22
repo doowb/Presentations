@@ -1,0 +1,32 @@
+﻿@{
+    Layout = null;
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <label>Product List</label>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table table-striped table-bordered table-hover table-condensed">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="product in products" ng-show="products.length > 0">
+                        <td>{{product.Name}}</td>
+                        <td>{{product.Description}}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" ng-hide="products.length > 0">No Products</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

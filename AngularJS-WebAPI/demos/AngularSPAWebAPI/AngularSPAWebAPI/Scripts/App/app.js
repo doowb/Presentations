@@ -8,6 +8,11 @@ app.core = angular.module("app", [])
                     templateUrl: '/templates/home/index',
                     controller: 'controllers.home'
                 })
+                .when('/products/list',
+                {
+                    templateUrl: '/templates/products/list',
+                    controller: 'controllers.product.list',
+                })
                 .otherwise({ redirectTo: '/' });
 
             $locationProvider.html5Mode(true);

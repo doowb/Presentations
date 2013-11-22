@@ -1,5 +1,6 @@
 using System.Web.Http;
 using System.Web.Mvc;
+using Data;
 using Microsoft.Practices.Unity;
 using Unity.Mvc3;
 
@@ -20,6 +21,7 @@ namespace AngularSPAWebAPI
 
             // register all your components with the container here
             // e.g. container.RegisterType<ITestService, TestService>();            
+            container.RegisterType<IProductRepository, ProductRepository>();
 
             return container;
         }

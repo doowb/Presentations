@@ -42,13 +42,23 @@
 				<section>
 					<h2>creating single page applications with angularjs and asp.net mvc 4 web api</h2>
 				</section>
-				
+
+        <section>
+          <h2>About me</h2>
+          <ul>
+            <li class="fragment">Brian Woodward (@doowb)</li>
+            <li class="fragment">Previously: Resurgent Capital Services</li>
+            <li class="fragment">Currently: Sellside</li>
+          </ul>
+        </section>				
 
 				<section>
+          <h2>Agenda</h2>
 					<ul>
-						<li class="fragment"><p>AngularJS</p></li>
-						<li class="fragment"><p>ASP.NET MVC 4 Web API</p></li>
-						<li class="fragment"><p>Pitfalls</p></li>
+            <li class="fragment">Application Architecture</li>
+						<li class="fragment">AngularJS</li>
+						<li class="fragment">ASP.NET MVC 4 Web API</li>
+						<li class="fragment">Pitfalls</li>
 					</ul>
 				</section>
 
@@ -243,22 +253,6 @@ public class TemplatesController : BaseController
     })
             </code></pre>
           </section>
-
-					<section>
-						<p>Caching Templates</p>
-            <pre class="fragment"><code contenteditable style="font-size: 18px; margin-top: 20px;">
-protected override System.IAsyncResult BeginExecute(
-  System.Web.Routing.RequestContext requestContext, 
-  System.AsyncCallback callback, object state)
-{
-    requestContext.HttpContext.Response.Cache.SetMaxAge(new TimeSpan(0));
-    return base.BeginExecute(requestContext, callback, state);
-}
-            </code></pre>
-						<aside class="notes">
-							Disable caching on the server side too.
-						</aside>
-					</section>
 
 					<section>
 						<p>Bundling / Minification</p>
