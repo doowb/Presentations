@@ -241,6 +241,8 @@
     <Content Include="Scripts\App\app.js" />
     <Content Include="Scripts\App\Controllers\home.js" />
     <Content Include="Scripts\App\Controllers\productList.js" />
+    <Content Include="Scripts\App\Controllers\productNew.js" />
+    <Content Include="Scripts\App\Models\product.js" />
     <Content Include="Scripts\App\Services\common.js" />
     <Content Include="Scripts\App\Services\productData.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -588,12 +590,12 @@
     <Content Include="Views\Shared\_Navigation.cshtml" />
     <Content Include="Views\Templates\Home\Index.cshtml" />
     <Content Include="Views\Templates\Products\list.cshtml" />
+    <Content Include="Views\Templates\Products\new.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Scripts\App\Directives\" />
     <Folder Include="Scripts\App\Filters\" />
-    <Folder Include="Scripts\App\Models\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

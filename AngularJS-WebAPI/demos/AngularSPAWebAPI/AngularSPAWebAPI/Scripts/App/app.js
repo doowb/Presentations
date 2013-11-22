@@ -11,7 +11,12 @@ app.core = angular.module("app", [])
                 .when('/products/list',
                 {
                     templateUrl: '/templates/products/list',
-                    controller: 'controllers.product.list',
+                    controller: 'controllers.product.list'
+                })
+                .when('/products/new',
+                {
+                    templateUrl: '/templates/products/new',
+                    controller: 'controllers.product.new'
                 })
                 .otherwise({ redirectTo: '/' });
 
