@@ -12,9 +12,7 @@
 		<meta name="apple-mobile-web-app-capable" content="yes" />
 		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 		
-		<link href='http://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
-		
-		<link rel="stylesheet" href="css/main.css">
+		<link rel="stylesheet" href="css/reveal.min.css">
 		<link rel="stylesheet" href="css/theme/default.css" id="theme">
 
 		<!-- For syntax highlighting -->
@@ -34,9 +32,6 @@
 		
 		<div class="reveal">
 
-			<!-- Used to fade in a background when a specific slide state is reached -->
-			<div class="state-background"></div>
-			
 			<!-- Any section element inside of this container is displayed as a slide -->
 			<div class="slides">
 				<section>
@@ -47,14 +42,16 @@
           <h2>About me</h2>
           <ul>
             <li class="fragment">Brian Woodward (@doowb)</li>
-            <li class="fragment">Previously: Resurgent Capital Services</li>
-            <li class="fragment">Currently: Sellside</li>
+            <li class="fragment current-visible">Resurgent Capital Services</li>
+            <li class="fragment">Co-Founder Sellside</li>
+            <li class="fragment">Co-Creator Assemble</li>
           </ul>
         </section>				
 
 				<section>
           <h2>Agenda</h2>
 					<ul>
+            <li class="fragment">The Old Way</li>
             <li class="fragment">Application Architecture</li>
 						<li class="fragment">AngularJS</li>
 						<li class="fragment">ASP.NET MVC 4 Web API</li>
@@ -63,15 +60,53 @@
 				</section>
 
         <section>
+          <aside class="notes">
+            AngularJS code in layout.cshtml and each view.
+            Views contained controller code that was specified on a div in the controller.
+            No services
+          </aside>
+          <section>
+            <h2>The Old Way</h2>
+          </section>
+
+          <section>
+            <h2>The Old Way</h2>
+            <p>Angular Application Declared in Layout.cshtml</p>
+            <pre><code contenteditable style="font-size: 18px; margin-top: 20px;">
+            </code></pre>
+          </section>
+
+          <section>
+            <h2>The Old Way</h2>
+            <p>Angular Controllers Declared in Page Views</p>
+            <pre><code contenteditable style="font-size: 18px; margin-top: 20px;">
+            </code></pre>
+          </section>
+
+          <section>
+            <h2>The Old Way</h2>
+            <p>No Services / Direct calls to $http.get()</p>
+            <pre><code contenteditable style="font-size: 18px; margin-top: 20px;">
+            </code></pre>
+          </section>
+
+        </section>
+
+        <section>
           <h2>Application Architecture</h2>
           <p class="fragment">To the Whiteboard!</p>
         </section>
 
 				<section>
-					<h2>AngularJS</h2>
 					<aside class="notes">
 					</aside>
+
+          <section>
+            <h2>AngularJS</h2>
+          </section>
+
 					<section>
+            <h2>AngularJS</h2>
 						<p>Namespacing / Modules</p>
 						<pre><code contenteditable style="font-size: 18px; margin-top: 20px;">
   var rcs = rcs || {};
@@ -84,10 +119,14 @@
 							Organize your script files.
 						</aside>
 					</section>
+
 					<section>
+            <h2>AngularJS</h2>
 						<p>AngularJS Services</p>
           </section>
+
           <section>
+            <h2>AngularJS</h2>
             <p>Generic API Service</p>
             <pre><code contenteditable style="font-size: 18px; margin-top: 20px;">
 rcs.app.core.factory('services', ['$http',
@@ -113,7 +152,9 @@ rcs.app.core.factory('services', ['$http',
 ]);
             </code></pre>
           </section>
+
           <section>
+            <h2>AngularJS</h2>
             <p>Domain Specific API Service</p>
             <pre><code contenteditable style="font-size: 18px; margin-top: 20px;">
 rcs.app.core.factory('userData', ['services',
@@ -141,7 +182,9 @@ rcs.app.core.factory('userData', ['services',
 ]);
             </code></pre>
           </section>
+
           <section>
+            <h2>AngularJS</h2>
             <p>Using The Services</p>
             <pre class="fragment"><code contenteditable style="font-size: 18px; margin-top: 20px;">
 rcs.app.core.controller('usersSearch',
@@ -171,7 +214,9 @@ rcs.app.core.controller('usersSearch',
 					<aside class="notes">
 						Use services for data access.
 					</aside>
+
 					<section>
+            <h2>AngularJS</h2>
 						<p>Caching Templates</p>
             <pre class="fragment"><code contenteditable style="font-size: 18px; margin-top: 20px;">
 rcs.app.core.run(function ($rootScope, $templateCache) {
@@ -185,7 +230,9 @@ rcs.app.core.run(function ($rootScope, $templateCache) {
 							each load.
 						</aside>
 					</section>
+
 					<section>
+            <h2>AngularJS</h2>
 						<p>Angular UI Modules</p>
             <ul>
               <li><a href="http://angular-ui.github.io/#ui-modules">UI-Modules</li>
@@ -195,14 +242,19 @@ rcs.app.core.run(function ($rootScope, $templateCache) {
 							Use the angular-ui project for working with common bootstrap components.
 						</aside>
 					</section>
+
 				</section>
 
 				<section>
-					<h2>ASP.NET MVC 4 Web API</h2>
 					<aside class="notes">
 					</aside>
 
           <section>
+            <h2>ASP.NET MVC 4 Web API</h2>
+          </section>
+
+          <section>
+            <h2>ASP.NET MVC 4 Web API</h2>
             <p>Main Route</p>
             <pre class="fragment"><code contenteditable style="font-size: 18px; margin-top: 20px;">
 routes.MapRoute(
@@ -218,6 +270,7 @@ routes.MapRoute(
           </section>
 
           <section>
+            <h2>ASP.NET MVC 4 Web API</h2>
             <p>Template Route</p>
             <pre class="fragment"><code contenteditable style="font-size: 18px; margin-top: 20px;">
 routes.MapRoute(
@@ -229,6 +282,7 @@ routes.MapRoute(
           </section>
 
 					<section>
+            <h2>ASP.NET MVC 4 Web API</h2>
 						<p>Razor Templates</p>
 						<aside class="notes">
 							Setup a single TemplateController to handle all template rendering.
@@ -236,6 +290,7 @@ routes.MapRoute(
 					</section>
 
           <section>
+            <h2>ASP.NET MVC 4 Web API</h2>
             <p>Template Controller</p>
             <pre class="fragment"><code contenteditable style="font-size: 18px; margin-top: 20px;">
 public class TemplatesController : BaseController
@@ -249,6 +304,7 @@ public class TemplatesController : BaseController
           </section>
 
           <section>
+            <h2>ASP.NET MVC 4 Web API</h2>
             <p>Calling Templates from Angular</p>
             <pre class="fragment"><code contenteditable style="font-size: 18px; margin-top: 20px;">
  $routeProvider.when('/users/search',
@@ -260,6 +316,7 @@ public class TemplatesController : BaseController
           </section>
 
 					<section>
+            <h2>ASP.NET MVC 4 Web API</h2>
 						<p>Bundling / Minification</p>
             <pre class="fragment"><code contenteditable style="font-size: 18px; margin-top: 20px;">
 bundles.Add(new ScriptBundle("~/bundles/rcs").Include(
@@ -280,6 +337,7 @@ bundles.Add(new ScriptBundle("~/bundles/rcs").Include(
 					</section>
 
 					<section>
+            <h2>ASP.NET MVC 4 Web API</h2>
 						<p>HttpClient</p>
 						<aside class="notes">
 							Access your WebAPI from server side code.
@@ -287,6 +345,7 @@ bundles.Add(new ScriptBundle("~/bundles/rcs").Include(
 					</section>
 
           <section>
+            <h2>ASP.NET MVC 4 Web API</h2>
             <p>Setting up custom credentials</p>
             <pre class="fragment"><code contenteditable style="font-size: 18px; margin-top: 20px;">
 public HttpClient GetHttpClient()
@@ -307,6 +366,7 @@ public HttpClient GetHttpClient()
           </section>
 
           <section>
+            <h2>ASP.NET MVC 4 Web API</h2>
             <p>Using the HttpClient</p>
             <pre class="fragment"><code contenteditable style="font-size: 18px; margin-top: 20px;">
 public class NotificationRepository : INotificationRepository
@@ -336,11 +396,15 @@ public class NotificationRepository : INotificationRepository
 
 
 				<section>
-					<h2>Pitfalls</h2>
 					<aside class="notes">
 					</aside>
 
+          <section>
+            <h2>Pitfalls</h2>
+          </section>
+
 					<section>
+            <h2>Pitfalls</h2>
 						<p>Caching Issues In Older Browers</p>
             <pre class="fragment"><code contenteditable style="font-size: 18px; margin-top: 20px;">
 protected override System.IAsyncResult BeginExecute(
@@ -358,6 +422,7 @@ protected override System.IAsyncResult BeginExecute(
 					</section>
 
 					<section>
+            <h2>Pitfalls</h2>
 						<p>Web API Identity Issues</p>
 						<aside class="notes">
 							Web API doesn't have a session and when using Async Tasks
@@ -366,6 +431,7 @@ protected override System.IAsyncResult BeginExecute(
 					</section>
 
 					<section>
+            <h2>Pitfalls</h2>
 						<p>Angular / Bootstrap Routing Conflicts</p>
 						<aside class="notes">
 							Bootstrap modules are built to use jQuery plugins.
@@ -376,42 +442,7 @@ protected override System.IAsyncResult BeginExecute(
           
 				</section>
 				
-
-<!-- 				<section data-markdown>
-					<pre><code contenteditable style="margin-top: 20px;">
-					</code></pre>
-				</section>
- -->
-
-
-<!-- 				<section>
-					<h2>Fragmented Views</h2>
-					<p>Hit the next arrow...</p>
-					<p class="fragment">... to step through ...</p>
-					<ol>
-						<li class="fragment"><code>any type</code></li>
-						<li class="fragment"><em>of view</em></li>
-						<li class="fragment"><strong>fragments</strong></li>
-					</ol>
-				</section> -->
-				
-<!-- 				<section>
-					<h2>Spectacular image!</h2>
-					<a class="image" href="http://hakim.se/experiments/html5/breakdom/" target="_blank">
-						<img width="320" height="412" src="https://s3.amazonaws.com/hakim-static/reveal-js/breakdom.png" alt="BreakDOM game screenshot">
-					</a>
-				</section>
- -->				
-				
-<!-- 				<section>
-					<h2>Stellar Links</h2>
-					<ul>
-						<li><a href="https://github.com/hakimel/reveal.js">Source code on github</a></li>
-						<li><a href="http://hakim.se/projects/reveal-js">Read more on my site</a></li>
-						<li><a href="http://twitter.com/hakimel">Follow me on Twitter</a></li>
-					</ul>
-				</section> -->
-				
+			
 				<section>
 					<h1>THE END</h1>
 					<img 
