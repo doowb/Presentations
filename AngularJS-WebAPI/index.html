@@ -73,6 +73,21 @@
             <h2>The Old Way</h2>
             <p>Angular Application Declared in Layout.cshtml</p>
             <pre><code contenteditable style="font-size: 18px; margin-top: 20px;">
+&lt;html ng-app="app"&gt;
+&lt;body&gt;
+  @Html.Partial("_Navigation")
+  @RenderBody()
+  &lt;script&gt;
+    angular.module('app', [])
+    .run(function($rootScope) {
+      $rootScope.alert = function(msg) {
+        alert(msg);
+      };
+    });
+  &lt;/script&gt;
+  @RenderSection("scripts", required: false)
+&lt;/body&gt;
+&lt;/html&gt;
             </code></pre>
           </section>
 
@@ -80,6 +95,21 @@
             <h2>The Old Way</h2>
             <p>Angular Controllers Declared in Page Views</p>
             <pre><code contenteditable style="font-size: 18px; margin-top: 20px;">
+@section scripts {
+  &lt;script type="text/javascript"&gt;
+  var HomeController = function($scope) {
+    $scope.msg = "default message";
+    $scope.showAlert = function() {
+      $scope.alert($scope.msg);
+    };
+  };
+  &lt;/script&gt;
+}
+&lt;div id="home" ng-controller="HomeController"&gt;
+  &lt;label for="message"&gt;Message&lt;/label&gt;
+  &lt;input type="text" ng-model="msg" id="message" name="message"&gt;&lt;br/&gt;
+  &lt;button ng-click="showAlert"&gt;Show Alert&lt;/button&gt;
+&lt;/div&gt;
             </code></pre>
           </section>
 
@@ -87,6 +117,21 @@
             <h2>The Old Way</h2>
             <p>No Services / Direct calls to $http.get()</p>
             <pre><code contenteditable style="font-size: 18px; margin-top: 20px;">
+@section scripts {
+  &lt;script type="text/javascript"&gt;
+  var DemoController = function($scope, $http) {
+    $scope.rows = [];
+    $http.get('/api/demo').success(function(data) { $scope.rows = data; });
+  };
+  &lt;/script&gt;
+}
+&lt;div id="demo" ng-controller="DemoController"&gt;
+  &lt;table&gt;
+    &lt;tr ng-repeat="row in rows"&gt;
+      &lt;td&gt;{{row.id}}&lt;/td&gt;&lt;td&gt;{{row.foo}}&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/table&gt;
+&lt;/div&gt;
             </code></pre>
           </section>
 
