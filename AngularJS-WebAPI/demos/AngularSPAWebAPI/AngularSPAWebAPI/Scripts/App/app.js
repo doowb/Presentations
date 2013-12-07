@@ -27,7 +27,7 @@ app.core = angular.module("app", [])
 app.core.run(['$rootScope', '$templateCache',
     function ($rootScope, $templateCache) {
         $rootScope.$on('$viewContentLoaded', function () {
-            $templateCache.removeAll();
+            //$templateCache.removeAll();
         });
     }]);
     

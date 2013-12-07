@@ -4,7 +4,12 @@
 
 <div class="container">
     <div class="row">
-        <div clsas="col-md-6">
+        <div class="col-md-6">
+            <h2>Add a new Product</h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
             <form class="form-horizontal" role="form">
               <div class="form-group">
                 <label for="name" class="col-sm-2 control-label">Name</label>
@@ -15,12 +20,12 @@
               <div class="form-group">
                 <label for="description" class="col-sm-2 control-label">Description</label>
                 <div class="col-sm-10">
-                    <textarea cols="40" rows="10" ng-model="product.description"></textarea>
+                    <textarea cols="62" rows="10" ng-model="product.description"></textarea>
                 </div>
               </div>
               <div class="form-group">
                 <div class="col-sm-offset-2 col-sm-10">
-                  <button class="btn btn-default" ng-click="create()">Create</button>
+                  <button class="btn btn-primary col-md-4" ng-click="create()">Add</button>
                 </div>
               </div>
             </form>

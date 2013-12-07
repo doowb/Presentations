@@ -27,7 +27,7 @@ namespace AngularSPAWebAPI.Controllers
 
         protected override IAsyncResult BeginExecute(System.Web.Routing.RequestContext requestContext, AsyncCallback callback, object state)
         {
-            requestContext.HttpContext.Response.Cache.SetMaxAge(new TimeSpan(0));
+            //requestContext.HttpContext.Response.Cache.SetMaxAge(new TimeSpan(0));
             return base.BeginExecute(requestContext, callback, state);
         }
 
