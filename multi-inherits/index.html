@@ -1,0 +1,445 @@
+<!doctype html>  
+<html lang="en">
+  
+  <head>
+    <meta charset="utf-8">
+    
+    <title>Multiple Inheritance</title>
+
+    <meta name="description" content="Faking multiple inheritance with JavaScript prototypes">
+    <meta name="author" content="Brian Woodward">
+
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    
+    <link href='http://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/theme/default.css" id="theme">
+
+    <!-- For syntax highlighting -->
+    <link rel="stylesheet" href="lib/css/zenburn.css">
+
+    <script>
+      // If the query includes 'print-pdf' we'll use the PDF print sheet
+      document.write( '<link rel="stylesheet" href="css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
+    </script>
+
+    <!--[if lt IE 9]>
+    <script src="lib/js/html5shiv.js"></script>
+    <![endif]-->
+  </head>
+  
+  <body>
+    
+    <div class="reveal">
+
+      <!-- Used to fade in a background when a specific slide state is reached -->
+      <div class="state-background"></div>
+      
+      <!-- Any section element inside of this container is displayed as a slide -->
+      <div class="slides">
+
+        <!-- Title Page -->
+        <section>
+          <h1>multiple inheritance</h1>
+          <h3>faking it in JavaScript</h3>
+        </section>
+        
+        <!-- Intro Quote -->
+        <section>
+          <blockquote cite="http://citeseer.ist.psu.edu/viewdoc/download?doi=10.1.1.23.4735&rep=rep1&type=pdf">
+            It is also widely believed that multiple inheritance complicates a programming language significantly, is hard to implement, and is expensive to run.
+          </blockquote>
+
+          <p>
+            <i><small>- <a href="http://citeseer.ist.psu.edu/viewdoc/download?doi=10.1.1.23.4735&rep=rep1&type=pdf">Bjarne Stroustrup</a></small></i>
+          </p>
+
+          <aside class="notes">
+            Multiple Inheritance is the ability of a class to have more than one base class (super
+            class). In a language where multiple inheritance is supported a program can be structured
+            as a set of inheritance lattices instead of (just) as a set of inheritance trees. This is widely
+            believed to be an important structuring tool. It is also widely believed that multiple
+            inheritance complicates a programming language significantly, is hard to implement, and
+            is expensive to run. I will demonstrate that none of these last three conjectures are true.
+          </aside>
+        </section>
+
+
+        <!-- Topics -->
+        <section>
+          <h2>What we'll cover</h2>
+          <ol>
+            <li class="fragment">Basic JavsScript Inheritance</li>
+            <li class="fragment">How to Fake Multiple Inheritance</li>
+            <li class="fragment">Libraries and Utilities</li>
+          </ol>
+        </section>
+
+
+
+
+
+
+        <!-- Basic Inheritance -->
+        <section>
+          <h4>Basic JavaScript Inheritance</h4>
+          <section></section>
+
+          <section>
+            <pre><code contenteditable>
+function Shape () {
+  this.type = '';
+}
+Shape.prototype.area = function () {
+  return (this.len || 0) * (this.width || 0);
+};
+Shape.prototype.perimeter = function () {
+  return 2 * ((this.len || 0) + (this.width || 0));
+};
+
+function Rectangle (len, width) {
+  Shape.call(this);
+  this.type = 'rectangle';
+  this.len = len;
+  this.width = width;
+};
+Rectangle.prototype = Object.create(Shape.prototype);
+Rectangle.prototype.constructor = Rectangle
+            </code></pre>
+
+            <aside class="notes">
+              Use Object.create to add the Shape.prototype to Rectangle
+            </aside>
+
+          </section>
+
+          <section>
+            <pre><code contenteditable>
+var rect1 = new Rectangle(10, 20);
+var rect2 = new Rectangle(2, 1000);
+
+console.log('rect1.area\t', rect1.area());
+console.log('rect1.perimeter\t', rect1.perimeter());
+/*
+rect1.area      200
+rect1.perimeter 60
+*/
+console.log('rect2.area\t', rect2.area());
+console.log('rect2.perimeter\t', rect2.perimeter());
+/*
+rect2.area      2000
+rect2.perimeter 2004
+*/
+            </code></pre>
+
+            <aside class="notes">
+              Now Rectangle has area and perimeter methods.
+            </aside>
+          </section>
+
+          <section>
+            <pre><code contenteditable>
+function Square (side) {
+  Rectangle.call(this, side, side);
+}
+Square.prototype = Object.create(Rectangle.prototype);
+Square.prototype.constructor = Square
+
+var sqr1 = new Square(30);
+var sqr2 = new Square(5);
+
+console.log('sqr1.area\t', sqr1.area());
+console.log('sqr1.perimeter\t', sqr1.perimeter());
+/*
+sqr1.area      900
+sqr1.perimeter 120
+*/
+console.log('sqr2.area\t', sqr2.area());
+console.log('sqr2.perimeter\t', sqr2.perimeter());
+/*
+sqr2.area      25
+sqr2.perimeter 20
+*/
+            </code></pre>
+
+            <aside class="notes">
+              Square can inherit from either Rectangle or Shape
+            </aside>
+          </section>
+
+
+        </section>
+
+
+
+
+
+
+
+        <!-- Faking Multiple Inheritance -->
+        <section>
+          <h4>Basic JavaScript Inheritance</h4>
+          <section></section>
+
+          <section>
+            <pre><code contenteditable>
+function Shape () {
+  this.type = '';
+}
+Shape.prototype.area = function () {
+  return (this.len || 0) * (this.width || 0);
+};
+Shape.prototype.perimeter = function () {
+  return 2 * ((this.len || 0) + (this.width || 0));
+};
+
+function Rectangle (len, width) {
+  Shape.call(this);
+  this.type = 'rectangle';
+  this.len = len;
+  this.width = width;
+};
+Rectangle.prototype = Object.create(Shape.prototype);
+Rectangle.prototype.constructor = Rectangle
+            </code></pre>
+
+            <aside class="notes">
+              Use Object.create to add the Shape.prototype to Rectangle
+            </aside>
+
+          </section>
+
+          <section>
+            <pre><code contenteditable>
+var rect1 = new Rectangle(10, 20);
+var rect2 = new Rectangle(2, 1000);
+
+console.log('rect1.area\t', rect1.area());
+console.log('rect1.perimeter\t', rect1.perimeter());
+/*
+rect1.area      200
+rect1.perimeter 60
+*/
+console.log('rect2.area\t', rect2.area());
+console.log('rect2.perimeter\t', rect2.perimeter());
+/*
+rect2.area      2000
+rect2.perimeter 2004
+*/
+            </code></pre>
+
+            <aside class="notes">
+              Now Rectangle has area and perimeter methods.
+            </aside>
+          </section>
+
+          <section>
+            <pre><code contenteditable>
+function Square (side) {
+  Rectangle.call(this, side, side);
+}
+Square.prototype = Object.create(Rectangle.prototype);
+Square.prototype.constructor = Square
+
+var sqr1 = new Square(30);
+var sqr2 = new Square(5);
+
+console.log('sqr1.area\t', sqr1.area());
+console.log('sqr1.perimeter\t', sqr1.perimeter());
+/*
+sqr1.area      900
+sqr1.perimeter 120
+*/
+console.log('sqr2.area\t', sqr2.area());
+console.log('sqr2.perimeter\t', sqr2.perimeter());
+/*
+sqr2.area      25
+sqr2.perimeter 20
+*/
+            </code></pre>
+
+            <aside class="notes">
+              Square can inherit from either Rectangle or Shape
+            </aside>
+          </section>
+
+
+        </section>
+
+
+
+
+
+
+
+
+
+        <!-- Libraries and Utilites -->
+        <section>
+          <h4>Basic JavaScript Inheritance</h4>
+          <section></section>
+
+          <section>
+            <pre><code contenteditable>
+function Shape () {
+  this.type = '';
+}
+Shape.prototype.area = function () {
+  return (this.len || 0) * (this.width || 0);
+};
+Shape.prototype.perimeter = function () {
+  return 2 * ((this.len || 0) + (this.width || 0));
+};
+
+function Rectangle (len, width) {
+  Shape.call(this);
+  this.type = 'rectangle';
+  this.len = len;
+  this.width = width;
+};
+Rectangle.prototype = Object.create(Shape.prototype);
+Rectangle.prototype.constructor = Rectangle
+            </code></pre>
+
+            <aside class="notes">
+              Use Object.create to add the Shape.prototype to Rectangle
+            </aside>
+
+          </section>
+
+          <section>
+            <pre><code contenteditable>
+var rect1 = new Rectangle(10, 20);
+var rect2 = new Rectangle(2, 1000);
+
+console.log('rect1.area\t', rect1.area());
+console.log('rect1.perimeter\t', rect1.perimeter());
+/*
+rect1.area      200
+rect1.perimeter 60
+*/
+console.log('rect2.area\t', rect2.area());
+console.log('rect2.perimeter\t', rect2.perimeter());
+/*
+rect2.area      2000
+rect2.perimeter 2004
+*/
+            </code></pre>
+
+            <aside class="notes">
+              Now Rectangle has area and perimeter methods.
+            </aside>
+          </section>
+
+          <section>
+            <pre><code contenteditable>
+function Square (side) {
+  Rectangle.call(this, side, side);
+}
+Square.prototype = Object.create(Rectangle.prototype);
+Square.prototype.constructor = Square
+
+var sqr1 = new Square(30);
+var sqr2 = new Square(5);
+
+console.log('sqr1.area\t', sqr1.area());
+console.log('sqr1.perimeter\t', sqr1.perimeter());
+/*
+sqr1.area      900
+sqr1.perimeter 120
+*/
+console.log('sqr2.area\t', sqr2.area());
+console.log('sqr2.perimeter\t', sqr2.perimeter());
+/*
+sqr2.area      25
+sqr2.perimeter 20
+*/
+            </code></pre>
+
+            <aside class="notes">
+              Square can inherit from either Rectangle or Shape
+            </aside>
+          </section>
+
+
+        </section>
+
+
+
+
+
+        
+        
+        <section>
+          <h1>THE END</h1>
+          <img 
+            src="http://www.gravatar.com/avatar/122c580f74335979f36711b69deda5af.png"
+            alt="https://twitter.com/doowb">
+          <p>By Brian Woodward</p>
+          <ul>
+            <li><a href="http://assemble.io"> Assemble</a></li>
+            <li><a href="https://twitter.com/doowb"><img height="32px" src="Twitter_logo_blue.png" alt="https://twitter.com/doowb"> @doowb</a></li>
+            <li><a href="https://github.com/doowb"><img src="GitHub-Mark/PNG/GitHub-Mark-32px.png" alt="https://github.com/doowb"> https://github.com/doowb</a></li>
+          </ul>
+        </section>
+
+      </div>
+
+      <!-- The navigational controls UI -->
+      <aside class="controls">
+        <a class="left" href="#">&#x25C4;</a>
+        <a class="right" href="#">&#x25BA;</a>
+        <a class="up" href="#">&#x25B2;</a>
+        <a class="down" href="#">&#x25BC;</a>
+      </aside>
+
+      <div class="footer">
+        <div><i><small>
+            <a href="https://twitter.com/doowb">
+            &nbsp;<img src="Twitter_logo_blue.png" alt="https://twitter.com/doowb">
+            &nbsp;@doowb</a>
+        </small></i></div>
+        <div><i><small>
+            <a href="https://github.com/doowb">
+            &nbsp;<img src="GitHub-Mark/PNG/GitHub-Mark-32px.png" alt="https://github.com/doowb">
+            &nbsp;https://github.com/doowb</a>
+        </small></i></div>
+      </div>
+
+      <!-- Presentation progress bar -->
+      <div class="progress"><span></span></div>
+      
+    </div>
+
+    <script src="lib/js/head.min.js"></script>
+    <script src="js/reveal.min.js"></script>
+
+    <script>
+      
+      // Full list of configuration options available here:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        controls: true,
+        progress: true,
+        history: true,
+        
+        theme: Reveal.getQueryHash().theme || 'default', // available themes are in /css/theme
+        transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/linear(2d)
+
+        // Optional libraries used to extend on reveal.js
+        dependencies: [
+          { src: 'lib/js/highlight.js', async: true, callback: function() { window.hljs.initHighlightingOnLoad(); } },
+          { src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: 'lib/js/showdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+          { src: 'lib/js/data-markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+          { src: '/socket.io/socket.io.js', async: true, condition: function() { return window.location.host === 'localhost:1947'; } },
+          { src: 'plugin/speakernotes/client.js', async: true, condition: function() { return window.location.host === 'localhost:1947'; } },
+        ]
+      });
+      
+    </script>
+
+  </body>
+</html>
