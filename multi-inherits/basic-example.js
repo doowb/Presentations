@@ -1,3 +1,43 @@
+
+
+/********
+ * Information on .call and .apply
+ ********/
+
+function move (x, y) {
+  return {
+    x: this.pos.x + x,
+    y: this.pos.y + y
+  };
+}
+
+try { console.log(move(10, 20));
+} catch (err) { console.log('Error moving object. No pos property available');
+} finally { console.log(); }
+
+var obj = {
+  pos: {
+    x: 5,
+    y: 100
+  }
+};
+console.log('Original position: ', obj.pos);
+console.log('New position [call]: ', move.call(obj, 10, 20));
+console.log('New position [apply]: ', move.apply(obj, [10, 20]));
+console.log();
+/*
+Error moving object. No pos property available
+
+Original position:  { x: 5, y: 100 }
+New position [call]:  { x: 15, y: 120 }
+New position [apply]:  { x: 15, y: 120 }
+
+*/
+
+
+
+
+
 function Shape () {
   this.type = '';
 }
@@ -37,6 +77,7 @@ rect2.perimeter 2004
 
 function Square (side) {
   Rectangle.call(this, side, side);
+  this.type = 'square';
 }
 Square.prototype = Object.create(Rectangle.prototype);
 Square.prototype.constructor = Square
