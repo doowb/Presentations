@@ -431,6 +431,7 @@ sqr.location2   (5, -20)
           { src: 'lib/js/data-markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
           { src: '/socket.io/socket.io.js', async: true, condition: function() { return window.location.host === 'localhost:1947'; } },
           { src: 'plugin/speakernotes/client.js', async: true, condition: function() { return window.location.host === 'localhost:1947'; } },
+          { src: 'plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } },
         ]
       });
       
