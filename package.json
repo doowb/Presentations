@@ -11,5 +11,12 @@
     "node": "~0.6.8"
   },
   "dependencies": {},
-  "devDependencies": {}
+  "devDependencies": {},
+  "contributors": [
+    {
+      "name": "Brian Woodward",
+      "email": "brian.woodward@gmail.com",
+      "url": "https://github.com/doowb"
+    }
+  ]
 }
